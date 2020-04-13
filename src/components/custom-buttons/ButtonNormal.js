@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   btnText: {
-    color: "black"
+    color: "black",
+    textAlign: "center",
   }
 });
 

@@ -12,7 +12,7 @@ export default StyleSheet.create({
   alignCenter: main_styles.alignCenter,
 
   topToolbar: {
-    backgroundColor: "#000",
+    // backgroundColor: "#000",
     width: winWidth,
     height: 70,
     position: "absolute",
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     paddingTop: 20,
   },
   bottomToolbar: {
-    backgroundColor: "#000",
+    // backgroundColor: "#000",
     width: winWidth,
     height: 100,
     position: "absolute",

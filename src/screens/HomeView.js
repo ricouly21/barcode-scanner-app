@@ -7,6 +7,8 @@ import {
   StyleSheet
 } from "react-native";
 
+import { Col, Row, Grid } from "react-native-easy-grid";
+
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 
@@ -18,14 +20,10 @@ import main_styles from "assets/main.styles.js";
 
 const styles = StyleSheet.create({
   buttonPanelContainer: {
+    // backgroundColor: "pink",
+    height: 100,
     borderColor: "#aaa",
     borderBottomWidth: 1.0,
-    padding: 16,
-  },
-  buttonPanel: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
   },
 })
 
@@ -50,18 +48,18 @@ class HomeView extends React.Component {
               "Confirm",
               "Are you sure you want to logout?",
               [
-                {text: "No", style: "cancel"},
-                {text: "Yes", onPress: () => alert("You are logged out!")},
+                { text: "No", style: "cancel" },
+                { text: "Yes", onPress: () => alert("You are logged out!") },
               ]
             )
           )}
-          />
+        />
       ),
       headerRight: () => (
         <HeaderButton
           title="Settings"
           primaryAction={() => navigation.navigate("SettingsView")}
-          />
+        />
       )
     });
   }
@@ -72,16 +70,17 @@ class HomeView extends React.Component {
   }
 
   handleCameraPermission = async () => {
-    await Permissions.askAsync(Permissions.CAMERA);
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    return status;
   }
 
   handleMicrophonePermission = async () => {
-    await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+    const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+    return status;
   }
 
   openCamera = async () => {
-    await this.requestPermissions();
-    this.props.navigation.navigate("CameraView");
+    this.props.navigation.navigate("CameraView")
   }
 
   render() {
@@ -89,15 +88,21 @@ class HomeView extends React.Component {
       <View style={main_styles.container}>
         <View style={main_styles.content}>
           <View style={styles.buttonPanelContainer}>
-            <View style={styles.buttonPanel}>
-              <ButtonNormal title={"Button1"} />
-              <View style={{ width: 8 }} />
-              <ButtonNormal title={"Button2"} />
-              <View style={{ width: 8 }} />
-              <ButtonNormal
-                title={"Scanner"}
-                primaryAction={this.openCamera} />
-            </View>
+            <Grid>
+              <Row style={{ paddingVertical: 8 }}>
+                <Col style={main_styles.alignCenter}>
+                  <ButtonNormal title={"QR Reader"} />
+                </Col>
+                <Col style={main_styles.alignCenter}>
+                  <ButtonNormal title={"Text Scanner"} />
+                </Col>
+                <Col style={main_styles.alignCenter}>
+                  <ButtonNormal
+                    title={"Camera"}
+                    primaryAction={this.openCamera} />
+                </Col>
+              </Row>
+            </Grid>
           </View>
         </View>
       </View>

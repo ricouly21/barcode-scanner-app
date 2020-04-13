@@ -3,6 +3,7 @@ import {
   View,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Platform,
 } from "react-native";
 
 import { Camera } from "expo-camera";
@@ -17,17 +18,20 @@ const { FlashMode: CameraFlashModes, Type: CameraTypes } = Camera.Constants;
 export default function BottomToolbar({
   capturing = false,
   cameraType = CameraTypes.back,
+  // cameraType,
   setCameraType,
   onCaptureIn,
   onCaptureOut,
   onLongCapture,
   onShortCapture,
+  onPressGallery,
 }) {
   return (
     <Grid style={styles.bottomToolbar}>
       <Row>
         <Col style={styles.alignCenter}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={onPressGallery}>
             <Ionicons
               name="md-images"
               color="white"
